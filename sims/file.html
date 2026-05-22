@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎂 Happy Birthday Simran! 🎂</title>
+    <style>
+        @import url('[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap)');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+        
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* PAGE 1 - Gift Box */
+        #page1 {
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0d0d1a 100%);
+        }
+        
+        .gift-container {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            animation: shake 0.5s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+        
+        .gift-box.paused {
+            animation-play-state: paused;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(-3deg); }
+            25% { transform: rotate(3deg) translateX(5px); }
+            50% { transform: rotate(-3deg) translateX(-5px); }
+            75% { transform: rotate(3deg) translateX(3px); }
+        }
+        
+        .box-body {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(145deg, #e91e63, #c2185b);
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
+        }
+        
+        .box-body::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(145deg, #ffd700, #ffb700);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .box-lid {
+            width: 220px;
+            height: 50px;
+            background: linear-gradient(145deg, #e91e63, #ad1457);
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: -10px;
+            box-shadow: 0 -5px 20px rgba(233, 30, 99, 0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .box-lid::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(145deg, #ffd700, #ffb700);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .ribbon {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+        }
+        
+        .ribbon::before, .ribbon::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background: linear-gradient(145deg, #ffd700, #ffb700);
+            border-radius: 50% 50% 0 0;
+            top: 10px;
+        }
+        
+        .ribbon::before {
+            left: 0;
+            transform: rotate(-30deg);
+        }
+        
+        .ribbon::after {
+            right: 0;
+            transform: rotate(30deg);
+        }
+        
+        .gift-box.opening .box-lid {
+            animation: openLid 0.8s ease forwards;
+        }
+        
+        @keyframes openLid {
+            0% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-100px) rotate(-20deg); }
+            100% { transform: translateY(-150px) rotate(-45deg); opacity: 0; }
+        }
+        
+        .click-counter {
+            position: absolute;
+            bottom: -80px;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .click-hint {
+            color: #ffd700;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        /* Flash effect */
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .flash.active {
+            animation: flashAnim 0.5s ease-out;
+        }
+        
+        @keyframes flashAnim {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        /* Confetti */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -20px;
+            animation: confettiFall 3s ease-out forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        /* PAGE 2 - Password & Game */
+        #page2 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .password-container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .password-container h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+        }
+        
+        .password-container input {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            outline: none;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .password-container button {
+            margin-top: 20px;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            background: linear-gradient(145deg, #ffd700, #ffb700);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .password-container button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+        
+        .password-hint {
+            color: rgba(255,255,255,0.7);
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .error-msg {
+            color: #ff6b6b;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        /* Word Search Game */
+        .game-container {
+            display: none;
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            animation: popIn 0.5s ease;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .game-container h2 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        
+        .game-instructions {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        
+        .grid-cell {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+            font-size: 0.9rem;
+        }
+        
+        .grid-cell:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+        }
+        
+        .grid-cell.selected {
+            background: linear-gradient(145deg, #ffd700, #ffb700);
+            color: #333;
+        }
+        
+        .grid-cell.found {
+            background: linear-gradient(145deg, #4CAF50, #45a049);
+            animation: foundPulse 0.5s ease;
+        }
+        
+        @keyframes foundPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .words-to-find {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .word-tag {
+            padding: 8px 16px;
+            background: #eee;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #764ba2;
+            transition: all 0.3s;
+        }
+        
+        .word-tag.found {
+            background: linear-gradient(145deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: line-through;
+        }
+        
+        .current-selection {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            min-height: 40px;
+            font-weight: bold;
+            color: #764ba2;
+        }
+        
+        .check-word-btn {
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .check-word-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .clear-btn {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        /* PAGE 3 - Gallery */
+        #page3 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .gallery-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+            animation: bounceIn 1s ease;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+            background: white;
+            padding: 15px;
+        }
+        
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+        
+        .gallery-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .gallery-caption {
+            padding: 15px 5px;
+            text-align: center;
+            font-weight: 600;
+            color: #764ba2;
+        }
+        
+        .gallery-next-btn {
+            margin-top: 40px;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            background: white;
+            color: #f5576c;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        /* PAGE 4 - Wishes */
+        #page4 {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 40px 20px;
+        }
+        
+        .wishes-container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .wishes-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: bounceIn 1s ease;
+        }
+        
+        .wish-card {
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .wish-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .wish-card .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #11998e;
+            margin-top: 20px;
+        }
+        
+        .scroll-hint {
+            margin-top: 50px;
+            color: white;
+            font-size: 1.3rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .scroll-arrow {
+            font-size: 2.5rem;
+            display: block;
+            margin-top: 10px;
+        }
+        
+        .spacer {
+            height: 600px;
+        }
+        
+        /* Final Gift Box */
+        .final-gift-section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .final-gift-box {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            position: relative;
+            cursor: pointer;
+            animation: shake 0.4s ease-in-out infinite;
+        }
+        
+        .final-box-body {
+            width: 150px;
+            height: 110px;
+            background: linear-gradient(145deg, #ffd700, #ffb700);
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+        
+        .final-box-body::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background: linear-gradient(145deg, #e91e63, #c2185b);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .final-box-lid {
+            width: 165px;
+            height: 40px;
+            background: linear-gradient(145deg, #ffd700, #daa520);
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: -7.5px;
+            transition: all 0.5s ease;
+        }
+        
+        .final-box-lid::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background: linear-gradient(145deg, #e91e63, #c2185b);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .final-gift-box.opening .final-box-lid {
+            animation: openLid 0.8s ease forwards;
+        }
+        
+        .final-click-counter {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .final-message {
+            display: none;
+            background: white;
+            padding: 30px 50px;
+            border-radius: 20px;
+            margin-top: 30px;
+            animation: popIn 0.5s ease;
+        }
+        
+        .final-message h2 {
+            color: #e91e63;
+            font-size: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        /* Floating hearts */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 998;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: floatUp 4s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .gift-box { width: 150px; height: 150px; }
+            .box-body { width: 150px; height: 110px; }
+            .box-lid { width: 165px; height: 40px; left: -7.5px; }
+            .gallery-title { font-size: 2rem; }
+            .wishes-title { font-size: 2.5rem; }
+            .grid-cell { width: 28px; height: 28px; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="flash" id="flash"></div>
+    <div class="confetti-container" id="confetti"></div>
+    <div class="floating-hearts" id="hearts"></div>
+    
+    <!-- PAGE 1: Gift Box -->
+    <div class="page active" id="page1">
+        <div class="gift-container" id="giftContainer">
+            <div class="gift-box" id="giftBox">
+                <div class="box-lid">
+                    <div class="ribbon"></div>
+                </div>
+                <div class="box-body"></div>
+            </div>
+            <div class="click-counter">
+                Clicks: <span id="clickCount">0</span> / <span id="requiredClicks">15</span>
+            </div>
+        </div>
+        <p class="click-hint">🎁 Tap the gift to open it! 🎁</p>
+    </div>
+    
+    <!-- PAGE 2: Password & Game -->
+    <div class="page" id="page2">
+        <div class="password-container" id="passwordContainer">
+            <h2>🔐 Enter the Secret Code!</h2>
+            <p class="password-hint">Hint: Someone's name + a word that describes her 😜</p>
+            <input type="text" id="passwordInput" placeholder="Enter password..." maxlength="15">
+            <br>
+            <button onclick="checkPassword()">Unlock! 🔓</button>
+            <p class="error-msg" id="errorMsg"></p>
+        </div>
+        
+        <div class="game-container" id="gameContainer">
+            <h2>🎮 Word Search Challenge!</h2>
+            <p class="game-instructions">Find these 4 special words hidden in the grid below.<br>Click letters to select them, then click "Check Word"!</p>
+            
+            <div class="word-grid" id="wordGrid"></div>
+            
+            <div class="current-selection">
+                Selected: <span id="selectedLetters"></span>
+            </div>
+            
+            <button class="check-word-btn" onclick="checkWord()">Check Word ✓</button>
+            <br>
+            <button class="clear-btn" onclick="clearSelection()">Clear Selection ✕</button>
+            
+            <div class="words-to-find">
+                <span class="word-tag" id="word-ISHU">ISHU</span>
+                <span class="word-tag" id="word-SIMRAN">SIMRAN</span>
+                <span class="word-tag" id="word-LAURI">LAURI</span>
+                <span class="word-tag" id="word-BAUNI">BAUNI</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PAGE 3: Gallery -->
+    <div class="page" id="page3">
+        <h1 class="gallery-title">✨Simran Gallery✨</h1>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸 Add Photo 1<br><small>WhatsApp Image 2026-05-23 at 01.31.34 (1)</small></div>
+                <p class="gallery-caption">PHOTO1</p>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸 Add Photo 2<br><small>WhatsApp Image 2026-05-23 at 01.31.34</small></div>
+                <p class="gallery-caption">PHOTO2</p>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸 Add Photo 3<br><small>WhatsApp Image 2026-05-23 at 01.31.33 (1)</small></div>
+                <p class="gallery-caption">PHOTO3</p>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸 Add Photo 4<br><small>WhatsApp Image 2026-05-23 at 01.31.33</small></div>
+                <p class="gallery-caption">PHOTO4</p>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸 Add Photo 5<br><small>WhatsApp Image 2026-05-23 at 01.30.42</small></div>
+                <p class="gallery-caption">PHOTO5</p>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">📸 Add Photo 6<br><small>Replace with actual image</small></div>
+                <p class="gallery-caption">PHOTO6</p>
+            </div>
+        </div>
+        <button class="gallery-next-btn" onclick="goToPage4()">See Birthday Wishes! 🎂</button>
+    </div>
+    
+    <!-- PAGE 4: Wishes -->
+    <div class="page" id="page4">
+        <div class="wishes-container">
+            <h1 class="wishes-title">🎂 Happy Birthday Simran! 🎂</h1>
+            
+            <div class="wish-card" style="animation-delay: 0.2s;">
+                <p>Dear Simran, the most amazing BAUNI ever! 🎀</p>
+                <p>From the day we created "Hind ke Sitar" GC, life has been nothing but crazy, dramatic, and absolutely unforgettable! You've been through so much with all of us, and look at us now – stronger than ever! 💪</p>
+                <p>Remember all the misunderstandings we had? All the blocking and unblocking drama? 😂 But real friendship always finds its way back, and here we are! You're not just a friend, you're family now.</p>
+                <p class="signature">~ From your Jiju Divyansh❤️</p>
+            </div>
+            
+            <div class="wish-card" style="animation-delay: 0.5s;">
+                <p>May this year bring you all the happiness, success, and loads of cake! 🍰</p>
+                <p>May you find someone who deserves you (unlike some idiots from the past 😜), and may all your dreams come true!</p>
+                <p>Keep being the awesome, crazy, and amazing person you are. Never change for anyone!</p>
+                <p class="signature">~ With all our love 💕</p>
+            </div>
+            
+            <div class="scroll-hint">
+                👇 Scroll down for a surprise! 👇
+                <span class="scroll-arrow">⬇️</span>
+            </div>
+            
+            <div class="spacer"></div>
+            
+            <div class="final-gift-section">
+                <p style="color: white; font-size: 1.3rem; margin-bottom: 20px;">🎁 One more gift awaits... tap it 69 times! 🎁</p>
+                <div class="final-click-counter">
+                    Clicks: <span id="finalClickCount">0</span> / 69
+                </div>
+                <div class="final-gift-box" id="finalGiftBox">
+                    <div class="final-box-lid"></div>
+                    <div class="final-box-body"></div>
+                </div>
+                <div class="final-message" id="finalMessage">
+                    <h2>KUCH ACHA ORDER KR<br>NHI TOH TEREKO SHRAP LAGEGA 😈🍕</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Birthday Music -->
+    <audio id="birthdayMusic" preload="auto">
+        <source src="[soundhelix.com](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3)" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Page 1: Gift Box Logic
+        let clickCount = 0;
+        const requiredClicks = 15;
+        const giftBox = document.getElementById('giftBox');
+        const giftContainer = document.getElementById('giftContainer');
+        
+        giftContainer.addEventListener('click', function() {
+            clickCount++;
+            document.getElementById('clickCount').textContent = clickCount;
+            
+            // Add shake intensity as clicks increase
+            if (clickCount < requiredClicks) {
+                giftBox.classList.add('paused');
+                setTimeout(() => giftBox.classList.remove('paused'), 50);
+            }
+            
+            if (clickCount >= requiredClicks) {
+                openGiftBox();
+            }
+        });
+        
+        function openGiftBox() {
+            giftBox.classList.add('opening');
+            giftBox.style.animation = 'none';
+            
+            // Play music
+            const music = document.getElementById('birthdayMusic');
+            music.play().catch(e => console.log('Audio play failed:', e));
+            
+            // Flash effect
+            setTimeout(() => {
+                document.getElementById('flash').classList.add('active');
+                createConfetti();
+                createHearts();
+            }, 500);
+            
+            // Go to page 2
+            setTimeout(() => {
+                document.getElementById('page1').classList.remove('active');
+                document.getElementById('page2').classList.add('active');
+            }, 1500);
+        }
+        
+        function createConfetti() {
+            const container = document.getElementById('confetti');
+            const colors = ['#e91e63', '#ffd700', '#4CAF50', '#2196F3', '#9c27b0', '#ff5722'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(confetti);
+            }
+            
+            setTimeout(() => container.innerHTML = '', 5000);
+        }
+        
+        function createHearts() {
+            const container = document.getElementById('hearts');
+            const emojis = ['❤️', '💕', '💖', '💗', '💝', '🎂', '🎁', '✨', '🌟'];
+            
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(heart);
+            }
+            
+            setTimeout(() => container.innerHTML = '', 7000);
+        }
+        
+        // Page 2: Password Check
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value.toUpperCase();
+            const errorMsg = document.getElementById('errorMsg');
+            
+            if (password === 'SIMRANPAGAL') {
+                document.getElementById('passwordContainer').style.animation = 'popOut 0.5s ease forwards';
+                setTimeout(() => {
+                    document.getElementById('passwordContainer').style.display = 'none';
+                    document.getElementById('gameContainer').style.display = 'block';
+                    initWordSearch();
+                }, 500);
+            } else {
+                errorMsg.textContent = 'Wrong password! Try again 😅';
+                document.getElementById('passwordInput').value = '';
+                setTimeout(() => errorMsg.textContent = '', 2000);
+            }
+        }
+        
+        // Word Search Game
+        const wordsToFind = ['ISHU', 'SIMRAN', 'LAURI', 'BAUNI'];
+        let foundWords = [];
+        let selectedCells = [];
+        
+        function initWordSearch() {
+            const grid = [
+                ['L', 'A', 'U', 'R', 'I', 'H', 'O', 'S', 'T', 'C'],
+                ['S', 'I', 'M', 'R', 'A', 'N', 'X', 'Q', 'W', 'E'],
+                ['B', 'Z', 'Y', 'K', 'L', 'M', 'N', 'O', 'P', 'I'],
+                ['A', 'R', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'S'],
+                ['U', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'H'],
+                ['N', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'U'],
+                ['I', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A']
+            ];
+            
+            const gridContainer = document.getElementById('wordGrid');
+            gridContainer.innerHTML = '';
+            gridContainer.style.gridTemplateColumns = `repeat(${grid[0].length}, 1fr)`;
+            
+            grid.forEach((row, rowIndex) => {
+                row.forEach((letter, colIndex) => {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    cell.textContent = letter;
+                    cell.dataset.row = rowIndex;
+                    cell.dataset.col = colIndex;
+                    cell.addEventListener('click', () => selectCell(cell));
+                    gridContainer.appendChild(cell);
+                });
+            });
+        }
+        
+        function selectCell(cell) {
+            if (cell.classList.contains('found')) return;
+            
+            cell.classList.toggle('selected');
+            
+            if (cell.classList.contains('selected')) {
+                selectedCells.push(cell);
+            } else {
+                selectedCells = selectedCells.filter(c => c !== cell);
+            }
+            
+            updateSelectedLetters();
+        }
+        
+        function updateSelectedLetters() {
+            const letters = selectedCells.map(c => c.textContent).join('');
+            document.getElementById('selectedLetters').textContent = letters;
+        }
+        
+        function checkWord() {
+            const word = selectedCells.map(c => c.textContent).join('');
+            
+            if (wordsToFind.includes(word) && !foundWords.includes(word)) {
+                foundWords.push(word);
+                selectedCells.forEach(c => {
+                    c.classList.remove('selected');
+                    c.classList.add('found');
+                });
+                document.getElementById('word-' + word).classList.add('found');
+                selectedCells = [];
+                updateSelectedLetters();
+                
+                if (foundWords.length === wordsToFind.length) {
+                    setTimeout(() => {
+                        createConfetti();
+                        setTimeout(() => {
+                            document.getElementById('page2').classList.remove('active');
+                            document.getElementById('page3').classList.add('active');
+                        }, 1000);
+                    }, 500);
+                }
+            } else {
+                clearSelection();
+            }
+        }
+        
+        function clearSelection() {
+            selectedCells.forEach(c => c.classList.remove('selected'));
+            selectedCells = [];
+            updateSelectedLetters();
+        }
+        
+        // Page 3 to 4 transition
+        function goToPage4() {
+            createHearts();
+            document.getElementById('page3').classList.remove('active');
+            document.getElementById('page4').classList.add('active');
+        }
+        
+        // Page 4: Final Gift Box
+        let finalClickCount = 0;
+        const finalRequiredClicks = 69;
+        const finalGiftBox = document.getElementById('finalGiftBox');
+        
+        finalGiftBox.addEventListener('click', function() {
+            finalClickCount++;
+            document.getElementById('finalClickCount').textContent = finalClickCount;
+            
+            if (finalClickCount >= finalRequiredClicks) {
+                finalGiftBox.classList.add('opening');
+                finalGiftBox.style.animation = 'none';
+                
+                setTimeout(() => {
+                    document.getElementById('finalMessage').style.display = 'block';
+                    createConfetti();
+                    createHearts();
+                }, 800);
+            }
+        });
+        
+        // Add popOut animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes popOut {
+                0% { transform: scale(1); opacity: 1; }
+                100% { transform: scale(0); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Enter key for password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+    </script>
+</body>
+</html>
